@@ -3,6 +3,7 @@ package it.unikey.webapiexample.dal.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,20 +21,19 @@ public class Player {
     private Long playerId;
 
     @NotBlank
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private String playerFirstname;
 
     @NotBlank
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     private String playerLastname;
 
-    @NotBlank
-    @Column(nullable=false, unique=false)
+    @Column(nullable = false, unique = false)
     @Temporal(TemporalType.DATE)
     private Date playerBirthdate;
 
-    @ManyToOne
-    @JoinColumn(name = "playerCurrentTeam")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "team_id")
     private Team playerCurrentTeam;
 
 }

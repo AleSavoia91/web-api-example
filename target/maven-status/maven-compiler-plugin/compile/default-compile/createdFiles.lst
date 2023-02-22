@@ -1,3 +1,14 @@
+it\unikey\webapiexample\bll\mapper\impl\TeamDtoMapper.class
+it\unikey\webapiexample\bll\mapper\impl\TeamDtoMapperImpl.class
 it\unikey\webapiexample\dal\entity\Player.class
-it\unikey\webapiexample\WebApiExampleApplication.class
+it\unikey\webapiexample\bll\mapper\impl\PlayerDtoMapperImpl.class
+it\unikey\webapiexample\dal\repository\PlayerRepository.class
+it\unikey\webapiexample\dal\repository\TeamRepository.class
+it\unikey\webapiexample\bll\service\impl\PlayerService.class
+it\unikey\webapiexample\bll\mapper\DtoMapper.class
 it\unikey\webapiexample\dal\entity\Team.class
+it\unikey\webapiexample\pl\controller\PlayerController.class
+it\unikey\webapiexample\dal\exception\PlayerDAOException.class
+it\unikey\webapiexample\bll\mapper\impl\PlayerDtoMapper.class
+it\unikey\webapiexample\WebApiExampleApplication.class
+it\unikey\webapiexample\bll\exception\PlayerGenericException.class

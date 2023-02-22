@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,7 +25,9 @@ public class Team {
     @Column(nullable=false, unique=true)
     private String teamName;
 
-    @OneToMany(mappedBy = "playerCurrentTeam")
-    private List<Player> teamPlayers;
+    @OneToMany(mappedBy = "playerCurrentTeam",
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            orphanRemoval = true)
+    private Set<Player> teamPlayers;
 
 }
