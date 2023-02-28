@@ -18,4 +18,5 @@ public interface TeamDtoMapper extends DtoMapper<Team, TeamDTO> {
 
     @Override
     List<TeamDTO> toDtos(List<Team> entities);
+
 }

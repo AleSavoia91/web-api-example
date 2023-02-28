@@ -7,6 +7,7 @@ import java.util.Date;
 @Data
 public class PlayerDTO {
 
+    private Long playerId;
     private String playerFirstname;
     private String playerLastname;
     private Date playerBirthdate;

@@ -14,8 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -57,19 +57,51 @@ public class PlayerService implements CrudService<PlayerDTO> {
         return playerMapper.toDtos(playerRepository.findByPlayerCurrentTeamTeamId(teamId));
     }
 
-
     @Override
-    public PlayerDTO getById(Long id) throws PlayerGenericException {
-        return null;
+    public PlayerDTO getById(Long playerId) throws PlayerGenericException {
+        logger.info("START PlayerService.getById()");
+
+        try {
+            return playerMapper.toDto(playerRepository.findByPlayerId(playerId).get());
+        } catch (NoSuchElementException ex) {
+            logger.error(ex.getMessage());
+            throw new PlayerGenericException(ex.getMessage());
+        }
     }
 
     @Override
-    public PlayerDTO update(PlayerDTO dto) throws PlayerGenericException {
-        return null;
+    public PlayerDTO update(Long playerId, PlayerDTO newPlayerDto) throws PlayerGenericException {
+        logger.info("START PlayerService.update()");
+        Optional<Player> optionalPlayer = playerRepository.findById(playerId);
+        if (optionalPlayer.isPresent()) {
+            Player player = optionalPlayer.get();
+            if (newPlayerDto.getPlayerFirstname() != null) {
+                player.setPlayerFirstname(newPlayerDto.getPlayerFirstname());
+            }
+            if (newPlayerDto.getPlayerLastname() != null) {
+                player.setPlayerLastname(newPlayerDto.getPlayerLastname());
+            }
+            if (newPlayerDto.getPlayerBirthdate() != null) {
+                player.setPlayerBirthdate(newPlayerDto.getPlayerBirthdate());
+            }
+
+            playerRepository.saveAndFlush(player);
+            return playerMapper.toDto(player);
+        } else {
+            logger.error("No player found at id: " + playerId);
+            throw new PlayerGenericException("Player not found");
+        }
     }
 
     @Override
-    public void deleteById(Long id) throws PlayerGenericException {
-
+    public void deleteById(Long playerId) throws PlayerGenericException {
+        logger.info("START PlayerService.deleteById()");
+        try{
+            playerRepository.deleteById(playerId);
+        } catch (NoSuchElementException ex) {
+            logger.error("No player found at id: " + playerId);
+            throw new PlayerGenericException(ex.getMessage());
+        }
     }
+
 }

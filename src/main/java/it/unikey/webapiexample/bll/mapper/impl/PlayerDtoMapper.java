@@ -18,4 +18,5 @@ public interface PlayerDtoMapper extends DtoMapper<Player, PlayerDTO> {
 
     @Override
     List<PlayerDTO> toDtos(List<Player> entities);
+
 }

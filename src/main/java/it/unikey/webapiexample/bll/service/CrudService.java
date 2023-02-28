@@ -12,7 +12,7 @@ public interface CrudService<D> {
 
     D getById(Long id) throws PlayerGenericException;
 
-    D update(D dto) throws PlayerGenericException;
+    D update(Long playerId, D dto) throws PlayerGenericException;
 
     void deleteById(Long id) throws PlayerGenericException;
 
